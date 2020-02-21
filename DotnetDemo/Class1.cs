@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotnetDemo
+﻿namespace DotnetDemo
 {
     public class Class1
     {

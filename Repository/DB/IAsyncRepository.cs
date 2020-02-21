@@ -12,5 +12,6 @@ namespace Repository.DB
         Task AddRangeAsync(IList<T> entities);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task SaveChangesAsync();
     }
 }

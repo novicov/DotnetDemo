@@ -8,7 +8,7 @@ namespace Repository.DB
     /// <typeparam name="T">Тип сущности</typeparam>
     public class EfRepository<T> : IAsyncRepository<T> where T : class
     {
-        protected readonly DatabaseContext DbContext;
+        public DatabaseContext DbContext;
 
         protected EfRepository(DatabaseContext dbContext)
         {
@@ -31,24 +31,15 @@ namespace Repository.DB
             return await DbContext.Set<T>().ToListAsync();
         }
 
-
-        public IQueryable<T> Queryable()
-        {
-            return DbContext.Set<T>().AsQueryable();
-        }
-
-
         public async Task<T> AddAsync(T entity)
         {
             DbContext.Set<T>().Add(entity);
             await DbContext.SaveChangesAsync();
-
             return entity;
         }
 
         public async Task AddRangeAsync(IList<T> entities)
         {
-            //await DbContext.BulkInsertAsync(entities.ToList());
             await DbContext.Set<T>().AddRangeAsync(entities);
             await DbContext.SaveChangesAsync();
         }
@@ -63,6 +54,17 @@ namespace Repository.DB
         {
             DbContext.Set<T>().Remove(entity);
             await DbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await DbContext.SaveChangesAsync();
+        }
+
+
+        public IQueryable<T> Queryable()
+        {
+            return DbContext.Set<T>().AsQueryable();
         }
     }
 }

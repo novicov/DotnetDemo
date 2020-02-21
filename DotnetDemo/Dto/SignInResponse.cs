@@ -1,20 +1,20 @@
-﻿﻿ namespace DotnetDemo.Dto
+﻿namespace DotnetDemo.Dto
 {
     /// <summary>
-    /// Успешный ответ авторизации
+    ///     Успешный ответ авторизации
     /// </summary>
     public class SignInResponse
     {
         /// <summary>
-        /// Access-токен
+        ///     Access-токен
         /// </summary>
-        public AccessToken AccessToken;
+        public string AccessToken;
 
         /// <summary>
-        /// Конструктор
+        ///     Конструктор
         /// </summary>
         /// <param name="accessToken"></param>
-        public SignInResponse(AccessToken accessToken)
+        public SignInResponse(string accessToken)
         {
             AccessToken = accessToken;
         }

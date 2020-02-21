@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace Domain
+﻿namespace Domain
 {
     /// <summary>
-    /// Пользователь
+    ///     Пользователь
     /// </summary>
     public class UserEntity
     {
@@ -11,8 +9,10 @@ namespace Domain
         {
         }
 
-        public UserEntity(string firstName, string lastName, string middleName, bool isActive)
+        public UserEntity(long id, string login, string firstName, string lastName, string middleName, bool isActive)
         {
+            Id = id;
+            Login = login;
             FirstName = firstName;
             LastName = lastName;
             MiddleName = middleName;
@@ -20,32 +20,44 @@ namespace Domain
         }
 
         /// <summary>
-        /// Идентификатор сущности БД
+        ///     Идентификатор сущности БД
         /// </summary>
-        public long Id { get; private set; }
+        public long Id { get; }
 
         /// <summary>
-        /// Имя
+        ///     Логин пользователя
         /// </summary>
-        public string FirstName { get; private set; }
+        public string Login { get; }
 
         /// <summary>
-        /// Фамилия
+        ///     Имя
         /// </summary>
-        public string LastName { get; private set; }
+        public string FirstName { get; }
+
 
         /// <summary>
-        /// Отчество
+        ///     Фамилия
         /// </summary>
-        public string MiddleName { get; private set; }
+        public string LastName { get; }
 
         /// <summary>
-        /// Статус пользователя (активен/неактивен)
+        ///     Отчество
+        /// </summary>
+        public string MiddleName { get; }
+
+        /// <summary>
+        ///     Что-то неработающее
+        /// </summary>
+
+        public string NotUserField { get; private set; }
+
+        /// <summary>
+        ///     Статус пользователя (активен/неактивен)
         /// </summary>
         public bool IsActive { get; private set; }
 
         /// <summary>
-        /// Блокировка пользователя
+        ///     Блокировка пользователя
         /// </summary>
         public void Inactivate()
         {
@@ -53,7 +65,7 @@ namespace Domain
         }
 
         /// <summary>
-        /// Разблокировка пользователя    
+        ///     Разблокировка пользователя
         /// </summary>
         public void Activate()
         {

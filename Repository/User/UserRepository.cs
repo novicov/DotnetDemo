@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using System;
+using System.Threading.Tasks;
+using Domain;
 using Repository.DB;
 
 namespace Repository.User
@@ -7,6 +9,11 @@ namespace Repository.User
     {
         protected UserRepository(DatabaseContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task<UserEntity> FindByLoginAsync(string login)
+        {
+            throw new NotImplementedException();
         }
     }
 }

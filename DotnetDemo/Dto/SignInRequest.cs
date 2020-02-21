@@ -1,7 +1,7 @@
 ﻿namespace DotnetDemo.Dto
 {
     /// <summary>
-    /// Запрос на вход в систему
+    ///     Запрос на вход в систему
     /// </summary>
     public class SignInRequest
     {
@@ -16,12 +16,12 @@
         }
 
         /// <summary>
-        /// Логин (email)
+        ///     Логин (email)
         /// </summary>
         public string Login { get; set; }
 
         /// <summary>
-        /// Пароль
+        ///     Пароль
         /// </summary>
         public string Password { get; set; }
     }

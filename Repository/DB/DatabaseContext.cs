@@ -16,7 +16,7 @@ namespace Repository.DB
 
 
         /// <summary>
-        /// Пользователи
+        ///     Пользователи
         /// </summary>
         public DbSet<UserEntity> Users { get; set; }
 

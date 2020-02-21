@@ -1,23 +1,43 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DotnetDemo.Dto;
+using Repository.User;
 
 namespace DotnetDemo.Services
 {
     public class UserService : IUserService
     {
-        public Task ActivateAsync(long userId)
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
         {
-            throw new System.NotImplementedException();
+            _userRepository = userRepository;
         }
 
-        public Task InactivateAsync(long userId)
+        public async Task ActivateAsync(long userId)
         {
-            throw new System.NotImplementedException();
+            var userEntity = await _userRepository.GetByIdAsync(userId);
+            userEntity.Activate();
+            await _userRepository.SaveChangesAsync();
         }
 
-        public Task<SignInResponse> SignInAsync(SignInRequest signInModel)
+        public async Task InactivateAsync(long userId)
         {
-            throw new System.NotImplementedException();
+            var userEntity = await _userRepository.GetByIdAsync(userId);
+            userEntity.Inactivate();
+            await _userRepository.SaveChangesAsync();
+        }
+
+        public async Task<SignInResponse> SignInAsync(SignInRequest signInModel)
+        {
+            var user = await _userRepository.FindByLoginAsync(signInModel.Login);
+            if (user == null) throw new Exception("User Not Exist");
+            if (!user.IsActive) throw new Exception("User Deactivated");
+            // Verify Password, Attempts Count
+
+            // generate access token
+            var accToken = new SignInResponse(Guid.NewGuid().ToString());
+            return accToken;
         }
     }
 }
