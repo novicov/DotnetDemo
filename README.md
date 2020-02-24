@@ -1,3 +1,5 @@
+![.NET Core](https://github.com/novicov/DotnetDemo/workflows/.NET%20Core/badge.svg?branch=master)
+
 # ASP.NET Core unit testing example
 ## Used
 - Moq https://github.com/moq/moq4
