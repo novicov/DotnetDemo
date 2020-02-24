@@ -5,6 +5,7 @@ using Repository.User;
 
 namespace DotnetDemo.Services
 {
+    /// <inheritdoc />
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
@@ -14,6 +15,7 @@ namespace DotnetDemo.Services
             _userRepository = userRepository;
         }
 
+        /// <inheritdoc />
         public async Task ActivateAsync(long userId)
         {
             var userEntity = await _userRepository.GetByIdAsync(userId);
@@ -21,6 +23,7 @@ namespace DotnetDemo.Services
             await _userRepository.SaveChangesAsync();
         }
 
+        /// <inheritdoc />
         public async Task InactivateAsync(long userId)
         {
             var userEntity = await _userRepository.GetByIdAsync(userId);
@@ -28,6 +31,7 @@ namespace DotnetDemo.Services
             await _userRepository.SaveChangesAsync();
         }
 
+        /// <inheritdoc />
         public async Task<SignInResponse> SignInAsync(SignInRequest signInModel)
         {
             var user = await _userRepository.FindByLoginAsync(signInModel.Login);

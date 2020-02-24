@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.DB;
 
@@ -10,7 +11,9 @@ namespace DotnetDemo.Test.Database
             string databaseName)
         {
             var options = CreateInMemoryDatabaseOption(databaseName);
-            serviceCollection.AddScoped<DatabaseContext>(provider => new InMemoryDatabaseContext(options));
+            serviceCollection
+                .AddEntityFrameworkInMemoryDatabase()
+                .AddScoped<DatabaseContext>(provider => new InMemoryDatabaseContext(options));
 
             return serviceCollection;
         }
@@ -18,7 +21,9 @@ namespace DotnetDemo.Test.Database
         private static DbContextOptions CreateInMemoryDatabaseOption(string databaseName)
         {
             return new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase(databaseName)
+                .AddInterceptors()
+                .UseInMemoryDatabase(databaseName: databaseName)
+                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
                 .Options;
         }
     }

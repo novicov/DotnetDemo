@@ -7,7 +7,7 @@ namespace Repository.User
 {
     public class UserRepository : EfRepository<UserEntity>, IUserRepository
     {
-        protected UserRepository(DatabaseContext dbContext) : base(dbContext)
+        public UserRepository(DatabaseContext dbContext) : base(dbContext)
         {
         }
 

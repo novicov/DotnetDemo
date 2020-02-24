@@ -4,6 +4,10 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\DotnetDemo.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\Repository\Repository.csproj" />
     </ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain
 {
     /// <summary>
     ///     Пользователь
@@ -22,7 +24,8 @@
         /// <summary>
         ///     Идентификатор сущности БД
         /// </summary>
-        public long Id { get; }
+        [Key]
+        public long Id { get; set; }
 
         /// <summary>
         ///     Логин пользователя

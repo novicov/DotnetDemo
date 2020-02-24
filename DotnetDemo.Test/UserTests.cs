@@ -2,24 +2,23 @@ using System.Threading.Tasks;
 using Domain;
 using DotnetDemo.Dto;
 using DotnetDemo.Services;
+using DotnetDemo.Test.Database;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Repository.DB;
 using Repository.User;
 using Xunit;
+using Xunit.Extensions.Ordering;
 
 namespace DotnetDemo.Test
 {
+    [Collection("C1"), Order(2)]
     public class UserTests
     {
-        static UserTests()
+        public UserTests()
         {
             var serviceCollection = new ServiceCollection();
-
-            // serviceCollection.AddInMemoryDatabase("test_users");
-            var mockContext = new Mock<DatabaseContext>();
-            serviceCollection.AddSingleton(mockContext);
 
             var testUser = new UserEntity(1, Login, "Новиков", "Антон", "Сергеевич", true);
 
@@ -32,42 +31,19 @@ namespace DotnetDemo.Test
             mockedRepository
                 .Setup(x => x.FindByLoginAsync(Login))
                 .Returns(Task.FromResult(testUser));
-
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
+
             serviceCollection.AddScoped<IUserService, UserService>();
             serviceCollection.AddScoped(provider => mockedRepository.Object);
-
             ServiceProvider = serviceCollection.BuildServiceProvider();
-
-            UserService = ServiceProvider.GetRequiredService<IUserService>();
+            _userService = ServiceProvider.GetRequiredService<IUserService>();
         }
 
-        protected static ServiceProvider ServiceProvider { get; }
-        private static readonly IUserService UserService;
+        private ServiceProvider ServiceProvider { get; set; }
+        private readonly IUserService _userService;
         private const string Login = "@True0";
-        private static IUserRepository UserRepository => ServiceProvider.GetRequiredService<IUserRepository>();
 
-        [Fact]
-        public async Task ActivateAsync()
-        {
-            var user = await UserRepository.FindByLoginAsync(Login);
-            await UserService.ActivateAsync(user.Id);
-            var response = await UserRepository.GetByIdAsync(user.Id);
-            var result = response == null || !response.IsActive;
-            result.Should().BeFalse();
-        }
-
-        [Fact]
-        public async Task InactivateAsync()
-        {
-            var user = await UserRepository.FindByLoginAsync(Login);
-            await UserService.InactivateAsync(user.Id);
-            var response = await UserRepository.GetByIdAsync(user.Id);
-            var result = response == null || response.IsActive;
-            result.Should().BeFalse();
-        }
-
-        [Fact]
+        [Fact, Order(3)]
         public async Task SignInAsync()
         {
             var request = new SignInRequest
@@ -75,7 +51,7 @@ namespace DotnetDemo.Test
                 Login = Login,
                 Password = "test"
             };
-            var response = await UserService.SignInAsync(request);
+            var response = await _userService.SignInAsync(request);
             var result = response?.AccessToken;
             result.Should().NotBeNullOrEmpty();
         }

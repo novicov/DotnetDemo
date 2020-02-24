@@ -4,6 +4,14 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\Repository.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\Repository.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
