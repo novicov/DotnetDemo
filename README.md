@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/true0/fe9f589c-4cc9-497f-9115-77bd4216d643/045809ff-5cf7-4f0e-96b7-2d2c290c5a68/_apis/work/boardbadge/c2324efe-21e5-44eb-bd05-955731290262)](https://dev.azure.com/true0/fe9f589c-4cc9-497f-9115-77bd4216d643/_boards/board/t/045809ff-5cf7-4f0e-96b7-2d2c290c5a68/Microsoft.RequirementCategory)
 ![.NET Core](https://github.com/novicov/DotnetDemo/workflows/.NET%20Core/badge.svg?branch=master)
 
 # Пример Unit тестов для ASP.NET Core
